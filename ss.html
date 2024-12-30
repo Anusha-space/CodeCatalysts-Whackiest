@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Details</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1A103D, #4B2E83);
+      color: #FFFFFF;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header {
+      font-size: 36px;
+      color: #FFA500;
+      margin-bottom: 20px;
+    }
+
+    .table {
+      width: 80%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    .table th, .table td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    .table th {
+      background-color: #333;
+      color: #FFA500;
+    }
+
+    .table tr:nth-child(even) {
+      background-color: #2c1f4e;
+    }
+
+    .table tr:hover {
+      background-color: #444;
+    }
+
+    .button {
+      background-color: #FFA500;
+      border: none;
+      color: #FFFFFF;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 25px;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background-color: #FF8C00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">Internship Details</div>
+    
+    <!-- Table to display internship details -->
+    <table class="table" id="internshipTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Semester</th>
+          <th>Internship Company</th>
+          <th>Stipend Amount</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Button Section -->
+    <a href="C:\CampusLink\profile.html">
+    <button class="button" onclick="window.location.href='/user-profile.html'">Go to User Profile</button>
+    </a>
+  </div>
+
+  <script>
+    // Fetch internship data from backend API
+    fetch('http://localhost:5000/api/internships')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#internshipTable tbody');
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${item.Name}</td>
+            <td>${item.Semester}</td>
+            <td>${item.Internship_Company}</td>
+            <td>${item.Stipend_Amount}</td>
+            <td>${item.Email}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching internship details:', error);
+      });
+  </script>
+</body>
+</html>
